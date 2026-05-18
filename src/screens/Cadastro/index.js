@@ -32,14 +32,12 @@ export default function Cadastro({ navigation, route }) {
   const salvar = async () => {
     const nomeLimpo = nome.trim();
     const telefoneLimpo = telefone.trim().replace(/\((\d+)\)/g, "$1");
-    const regexTelefone = /^[0-9]*$/;
 
     if (
       !nomeLimpo ||
       nome.length < 3 ||
       !telefoneLimpo ||
-      isNaN(telefoneLimpo) ||
-      telefoneLimpo.length != 11
+      isNaN(telefoneLimpo)
     ) {
       Alert.alert("Validacao", "Verifique os dados e tente novamente!.");
       return;

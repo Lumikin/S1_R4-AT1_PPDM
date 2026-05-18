@@ -47,3 +47,18 @@ export const listContacts = async () => {
   );
   return result;
 };
+
+export const listarNome = async nome => {
+  let result = await db.getAllAsync(
+    "SELECT * FROM contatos WHERE nome = ? ",
+    nome,
+  );
+  return result;
+};
+export const listarNumero = async numero => {
+  let result = await db.getAllAsync(
+    "SELECT * FROM contatos WHERE telefone = ?",
+    numero,
+  );
+  return result;
+};

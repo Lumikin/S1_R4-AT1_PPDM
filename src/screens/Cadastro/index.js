@@ -10,7 +10,8 @@ import {
 import {
   saveContact,
   updateContact,
-  deleteContact,
+  listarNumero,
+  listarNome,
 } from "../../database/Database";
 
 export default function Cadastro({ navigation, route }) {
@@ -33,9 +34,21 @@ export default function Cadastro({ navigation, route }) {
     const nomeLimpo = nome.trim();
     const telefoneLimpo = telefone
       .trim()
-      .replace(/^\+\d{1,3}\s?/, "")
-      .replace(/\((\d+)\)/g, "$1");
+      .replace(/^\+\d{1,3}\s?/, "") // Tirar Numero internaciona (Ex: +55);
+      .replace(/\((\d+)\)/g, "$1"); // Tirar os parenteses "()" do numero;
 
+    const verificarNome = await listarNome(nomeLimpo);
+    console.log("Nome: \n", verificarNome);
+    if (verificarNome.length > 0) {
+      Alert.alert("Validacao", "Nome Duplicado foi encontrado");
+      return;
+    }
+    const verificarNumero = await listarNumero(telefoneLimpo);
+    console.log("Numero: \n", verificarNumero);
+    if (verificarNumero.length > 0) {
+      Alert.alert("Validacao", "Numero Duplicado foi encontrado");
+      return;
+    }
     if (
       !nomeLimpo ||
       nome.length < 3 ||

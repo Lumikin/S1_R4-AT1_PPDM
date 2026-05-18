@@ -31,7 +31,10 @@ export default function Cadastro({ navigation, route }) {
 
   const salvar = async () => {
     const nomeLimpo = nome.trim();
-    const telefoneLimpo = telefone.trim().replace(/\((\d+)\)/g, "$1");
+    const telefoneLimpo = telefone
+      .trim()
+      .replace(/^\+\d{1,3}\s?/, "")
+      .replace(/\((\d+)\)/g, "$1");
 
     if (
       !nomeLimpo ||
